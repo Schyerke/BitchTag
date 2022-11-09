@@ -1,0 +1,6 @@
+name: Bitchtag
+version: '${project.version}'
+main: bitchtag.bitchtag.Bitchtag
+api-version: 1.18
+authors: [ stefano ]
+description: acchiappino
