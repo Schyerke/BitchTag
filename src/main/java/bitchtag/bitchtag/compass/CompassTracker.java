@@ -5,8 +5,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class CompassTracker {
-    private Player runner;
-    private  Player hunter;
+    private Player playerTracked;
+    private  Player playerTracking;
     private int compassTrackingTaskId;
 
     private static CompassTracker instance;
@@ -20,12 +20,12 @@ public class CompassTracker {
     private CompassTracker(){
     }
 
-    public Player getHunter() {
-        return hunter;
+    public Player getPlayerTracking() {
+        return playerTracking;
     }
 
-    public Player getRunner() {
-        return runner;
+    public Player getPlayerTracked() {
+        return playerTracked;
     }
 
     public void stop(){
@@ -43,8 +43,13 @@ public class CompassTracker {
         catch (Exception e){
             System.out.println("Compass tracker was not running");
         }
-        this.hunter = player;
-        this.runner = target;
-        this.compassTrackingTaskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(Bitchtag.getInstance(), () -> hunter.setCompassTarget(runner.getLocation()), 0, 20);
+        this.playerTracking = player;
+        this.playerTracked = target;
+        this.compassTrackingTaskId = Bukkit.getScheduler()
+                .scheduleSyncRepeatingTask(Bitchtag.getInstance(),
+                        () -> playerTracking.setCompassTarget(playerTracked.getLocation()),
+                        0, 20
+                );
+
     }
 }

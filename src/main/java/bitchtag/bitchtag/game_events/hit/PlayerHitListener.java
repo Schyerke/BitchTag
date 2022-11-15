@@ -1,4 +1,4 @@
-package bitchtag.bitchtag.player.listener;
+package bitchtag.bitchtag.game_events.hit;
 
 import bitchtag.bitchtag.game.GameHelper;
 import org.bukkit.entity.Player;
@@ -12,12 +12,12 @@ public class PlayerHitListener implements Listener {
     public void onPlayerHit(EntityDamageByEntityEvent e){
         e.setDamage(0);
         if(e.getEntity() instanceof Player player && e.getDamager() instanceof Player damager){
-            if(GameHelper.INSTANCE.isBitch(player)){
+            GameHelper gameHelper = GameHelper.INSTANCE;
+            if(gameHelper.isBitch(player)){
                 return;
             }
-            if(GameHelper.INSTANCE.isBitch(damager)){
-                GameHelper.INSTANCE.addBitch(player);
-                GameHelper.INSTANCE.removeBitch(damager);
+            if(gameHelper.isBitch(damager)){
+                gameHelper.swapBitches(player, damager);
             }
         }
     }

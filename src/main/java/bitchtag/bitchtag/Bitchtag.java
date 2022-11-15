@@ -1,5 +1,8 @@
 package bitchtag.bitchtag;
 
+import bitchtag.bitchtag.game_events.DoubleJump;
+import bitchtag.bitchtag.game_events.hit.PlayerHitListener;
+import bitchtag.bitchtag.game_events.hit.ProjectileHitListener;
 import bitchtag.bitchtag.inventory.listener.InventoryInteractListener;
 import bitchtag.bitchtag.inventory.listener.InventoryOpenTriggerListener;
 import bitchtag.bitchtag.item.listener.ItemInteractListener;
@@ -28,6 +31,10 @@ public final class Bitchtag extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ItemInteractListener(), this);
         getServer().getPluginManager().registerEvents(new InventoryInteractListener(), this);
         getServer().getPluginManager().registerEvents(new InventoryOpenTriggerListener(), this);
+        getServer().getPluginManager().registerEvents(new ProjectileHitListener(), this);
+        getServer().getPluginManager().registerEvents(new DoubleJump(), this);
+        getServer().getPluginManager().registerEvents(new PlayerHitListener(), this);
+        getServer().getPluginManager().registerEvents(new ProjectileHitListener(), this);
 
     }
 

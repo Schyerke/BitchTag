@@ -105,7 +105,7 @@ public enum GameHelper {
         return bitches;
     }
 
-    public void addBitch(Player bitch){
+    private void addBitch(Player bitch){
         this.bitches.add(bitch);
 
         bitch.getInventory().addItem(ItemHelper.INSTANCE.getCompassTracker());
@@ -118,7 +118,7 @@ public enum GameHelper {
         bitch.setScoreboard(board);
     }
 
-    public void removeBitch(Player bitch){
+    private void removeBitch(Player bitch){
         this.bitches.remove(bitch);
 
         bitch.getInventory().remove(ItemHelper.INSTANCE.getCompassTracker());
@@ -132,5 +132,10 @@ public enum GameHelper {
 
     public boolean isGameStarted() {
         return gameStarted;
+    }
+
+    public void swapBitches(Player playerShooter, Player hitPlayer) {
+        addBitch(hitPlayer);
+        removeBitch(playerShooter);
     }
 }
