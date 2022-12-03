@@ -1,6 +1,6 @@
-package bitchtag.bitchtag.world.listeners;
+package bitchtag.bitchtag.world;
 
-import bitchtag.bitchtag.world.WorldHelper;
+import bitchtag.bitchtag.Bitchtag;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -13,16 +13,17 @@ import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class PlayerTravelWorldsListener implements Listener {
-    private final WorldHelper worldHelper = WorldHelper.INSTANCE;
 
     @EventHandler
     public void onPlayerPortalTeleport(PlayerPortalEvent event) {
+        WorldTraveler worldTraveler = Bitchtag.getInstance().getWorldTraveler();
+
         Player player = event.getPlayer();
-        World overWorld = worldHelper.getCurrentOverWorld();
+        World overWorld = worldTraveler.getWorldByWorldEnv(World.Environment.NORMAL);
         if (event.getCause() == PlayerTeleportEvent.TeleportCause.NETHER_PORTAL) {
             event.setCanCreatePortal(true);
             event.setCreationRadius(3);
-            World netherWorld = worldHelper.getCurrentNetherWorld();
+            World netherWorld = worldTraveler.getWorldByWorldEnv(World.Environment.NETHER);
             Location location;
             if (player.getWorld() == overWorld) {
                 location = new Location(netherWorld, (float)event.getFrom().getBlockX() / 8, event.getFrom().getBlockY(), (float)event.getFrom().getBlockZ() / 8);
@@ -33,7 +34,7 @@ public class PlayerTravelWorldsListener implements Listener {
         }
         if (event.getCause() == PlayerTeleportEvent.TeleportCause.END_PORTAL) {
             if (player.getWorld() == overWorld) {
-                World endWorld = worldHelper.getCurrentEndWorld();
+                World endWorld = worldTraveler.getWorldByWorldEnv(World.Environment.THE_END);
                 Location loc = new Location(endWorld, 100, 50, 0); // This is the vanilla location for obsidian platform.
                 event.setTo(loc);
                 Block block = loc.getBlock();
@@ -53,7 +54,7 @@ public class PlayerTravelWorldsListener implements Listener {
                 }
             }
         }
-        else if (player.getWorld() == worldHelper.getCurrentEndWorld()) {
+        else if (player.getWorld() == worldTraveler.getWorldByWorldEnv(World.Environment.THE_END)) {
             event.setTo(overWorld.getSpawnLocation());
         }
     }

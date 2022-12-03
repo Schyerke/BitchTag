@@ -4,3 +4,13 @@ main: bitchtag.bitchtag.Bitchtag
 api-version: 1.18
 authors: [ stefano ]
 description: acchiappino
+commands:
+  l:
+    description: leave a game
+    usage: /l
+  leave:
+    description: leave a game
+    usage: /leave
+  option:
+    description: opens the option view
+    usage: /option
